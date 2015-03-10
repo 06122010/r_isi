@@ -82,7 +82,7 @@ Una vez obtenido el o los archivos con el formato delimitado por tabuladores, in
 Procedemos a cargar en el entorno de trabajo en R las funciones. Si ha optado por descargarlas de la url facilitada en el párrafo anterior, de no ser así habrá que ir escribiendo cada una a medida que avancemos en este trabajo. A continuación mostramos la instrucción para cargar todas las funciones.
 
 ```{r}
-source(file = "script/funciones.R")
+source(file = "funciones.R")
 ```
 
 A continuación se comentan las funciones que han sido cargadas y los parámetros de cómo han de ser usadas en todo momento.
@@ -186,15 +186,21 @@ knitr::kable(isi_unimetrics_wos(WoS,"ACUM"))
 
 Para mostrar la flexibilidad de nuestra propuesta, se ha programado una función más, denominada h_index que calcula el índice-h de la distribución en un año determinado a partir de los datos almacenados en el dataframe WoS. La sintaxis adecuada es:
 
+```{r}
 h_index(WoS,"PY",“2010”)
+```
 
 La función admite un intervalo de fechas (i), para lo cual hay que ejecutarla con la siguiente sintaxis:
 
+```{r}
 for(i in 2010:2014){h_index(WoS,"PY", i)}
+```
 
 Si se quiere calcular el índice-h en una determinada disciplina, utilizaremos la función del R-core, subset, con la siguiente sintaxis:
 
-sub_WoS=subset(WoS, grepl("Physics*”,WoS$WC))
+```{r}
+sub_WoS=subset(WoS, grepl("Physics*",WoS$WC))
+```
 
 el nuevo dataframe (sub_WoS) podrá usarse con la función h_index, para calcular el índice-h (en un año o en un periodo). El argumento grepl del comando subset, permite aplicar expresiones regulares para recuperar el área temática correspondiente en el campo WC del dataframe principal (WoS). 
 

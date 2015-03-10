@@ -1,28 +1,28 @@
-trim <- function( x ) {
+trim = function( x ) {
   gsub("(^[[:space:]]+|[[:space:]]+$)", "", x)
 }
 
-isi_cargar <- function(x){    
+isi_cargar = function(x){    
   a = list.files(path=x,pattern="*.txt")  
-  b<-paste(x, a, sep="")  
+  b=paste(x, a, sep="")  
   z = do.call("rbind", lapply(b, function(x) read.delim(x, row.names=NULL, stringsAsFactors=FALSE, quote = "", encoding="UTF-8")))
-  names(z) <- names(z)[-1]
-  z <- z[,-ncol(z)]
-  z$IDU <- seq_len(nrow(z))
+  names(z) = names(z)[-1]
+  z = z[,-ncol(z)]
+  z$IDU = seq_len(nrow(z))
   return(z)  
 }
 
-isi_separar <- function(x,y){
+isi_separar = function(x,y){
   if (!require("plyr")) {
     install.packages("plyr")
     library(plyr)
   } 
   if (y=="C1"){    
-    c1<-subset(x, select = c(IDU,UT,C1,PY), C1 !='')
+    c1=subset(x, select = c(IDU,UT,C1,PY), C1 !='')
     ddply(c1,.(IDU,PY),function(y){
-      z <- gsub(pattern = "(\\[[^:]+\\])",replacement = "", y$C1, perl=TRUE)
-      c1_dir <- unlist(strsplit(as.character(z), split="; "))
-      RS <- data.frame(
+      z = gsub(pattern = "(\\[[^:]+\\])",replacement = "", y$C1, perl=TRUE)
+      c1_dir = unlist(strsplit(as.character(z), split="; "))
+      RS = data.frame(
         C1 = toupper(trim(c1_dir)),
         stringsAsFactors = FALSE
       )
@@ -31,9 +31,9 @@ isi_separar <- function(x,y){
   }
   else if(y=="AU"){
     ddply(x,.(IDU,PY),function(y){
-      au_name <- unlist(strsplit(as.character(y$AU), split="; "))
-      au_fullname <- unlist(strsplit(as.character(y$AF), split="; "))
-      RS <- data.frame(
+      au_name = unlist(strsplit(as.character(y$AU), split="; "))
+      au_fullname = unlist(strsplit(as.character(y$AF), split="; "))
+      RS = data.frame(
         AU = toupper(au_name),
         AF = toupper(trim(au_fullname)),
         stringsAsFactors = FALSE
@@ -43,8 +43,8 @@ isi_separar <- function(x,y){
   }
   else if(y=="WC"){
     ddply(x,.(IDU,PY),function(y){  
-      wc_name <- unlist(strsplit(as.character(y$WC), split="; "))
-      RS <- data.frame(
+      wc_name = unlist(strsplit(as.character(y$WC), split="; "))
+      RS = data.frame(
         WC = toupper(trim(wc_name)),
         stringsAsFactors = FALSE
       )
@@ -53,10 +53,10 @@ isi_separar <- function(x,y){
     
   }
   else if(y=="CR"){
-    cr<-subset(x, select = c(IDU,UT,CR,PY), CR !='')
+    cr=subset(x, select = c(IDU,UT,CR,PY), CR !='')
     ddply(cr,.(IDU,PY),function(y){
-      cr_name <- unlist(strsplit(as.character(y$CR), split="; "))
-      RS <- data.frame(
+      cr_name = unlist(strsplit(as.character(y$CR), split="; "))
+      RS = data.frame(
         CR = toupper(trim(cr_name)),
         stringsAsFactors = FALSE
       )
@@ -65,7 +65,7 @@ isi_separar <- function(x,y){
   }
 }
 
-isi_exportar_sqlite <- function(x,y){
+isi_exportar_sqlite = function(x,y){
   if (!require("DBI")) {
     install.packages("DBI")
     library(DBI)
@@ -74,8 +74,8 @@ isi_exportar_sqlite <- function(x,y){
     install.packages("RSQLite")
     library(RSQLite)
   }
-  drv<-dbDriver("SQLite")
-  con<-dbConnect(drv, dbname ="pgwos.db")
+  drv=dbDriver("SQLite")
+  con=dbConnect(drv, dbname ="pgwos.db")
   if(y=="WoS"){
     dbWriteTable(con, "isi_t_pg", x)    
   }
@@ -94,12 +94,12 @@ isi_exportar_sqlite <- function(x,y){
   dbDisconnect(con)
 }
 
-isi_unimetrics_wos <- function(x,y,...){
+isi_unimetrics_wos = function(x,y,...){
   if (!require("ggplot2")) {
     install.packages("ggplot2")
     library(ggplot2)
   }
-  #colores <- matrix(hcl(0:5 * 60), 3, 2)
+  #colores = matrix(hcl(0:5 * 60), 3, 2)
   if(y=="PY"){    
     qplot(factor(PY), data=x, geom="bar", fill=factor(PY))
   }
@@ -113,16 +113,16 @@ isi_unimetrics_wos <- function(x,y,...){
     qplot(factor(PY), data=x, geom="bar", fill=factor(LA))
   }
   else if(y=="ACUM"){
-    q<-as.data.frame(table(x$PY))
-    q$'%'<-round((q$Freq/sum(q$Freq))*100,3)
-    q$Acum<-cumsum(q$Freq)
-    q$'%Acum'<-cumsum(q$'%')
-    q$Tasa<-round(((q$Freq-q$Freq[1])/q$Freq[1])*100,3)
+    q=as.data.frame(table(x$PY))
+    q$'%'=round((q$Freq/sum(q$Freq))*100,3)
+    q$Acum=cumsum(q$Freq)
+    q$'%Acum'=cumsum(q$'%')
+    q$Tasa=round(((q$Freq-q$Freq[1])/q$Freq[1])*100,3)
     return(q)
   }
 }
 
-isi_unimetrics_sqlite <- function(p){
+isi_unimetrics_sqlite = function(p){
   if (!require("DBI")) {
     install.packages("DBI")
     library(DBI)
@@ -131,10 +131,10 @@ isi_unimetrics_sqlite <- function(p){
     install.packages("RSQLite")
     library(RSQLite)
   }
-  drv<-dbDriver("SQLite")
-  con<-dbConnect(drv, dbname ="pgwos.db")
+  drv=dbDriver("SQLite")
+  con=dbConnect(drv, dbname ="pgwos.db")
   if(p=="A"){
-    x<-dbGetQuery(con,"SELECT COUNT(*) AS NAU, NPU FROM (SELECT rowid,  SUM( LENGTH( AU ) - LENGTH( REPLACE( AU, ';', '' ) ) +1 ) AS NPU FROM isi_t_pg GROUP BY rowid) GROUP BY NPU ORDER BY NAU ASC, NPU DESC")
+    x=dbGetQuery(con,"SELECT COUNT(*) AS NAU, NPU FROM (SELECT rowid,  SUM( LENGTH( AU ) - LENGTH( REPLACE( AU, ';', '' ) ) +1 ) AS NPU FROM isi_t_pg GROUP BY rowid) GROUP BY NPU ORDER BY NAU ASC, NPU DESC")
     x$nt.acum=cumsum(x$NPU)
     x$na.acum=cumsum(x$NAU)
     x$nt.p=round(cumsum(x$NPU)/sum(x$NPU)*100,2)
@@ -148,11 +148,11 @@ isi_unimetrics_sqlite <- function(p){
     return(x)
   }
   else if(p=="B"){
-    x<-dbGetQuery(con,"SELECT COUNT(*) AS NRev, cnt AS NPub FROM (SELECT J9, COUNT(*) AS 'cnt' FROM isi_t_pg GROUP BY J9 ORDER BY cnt DESC) GROUP BY NPub ORDER BY NRev, NPub DESC")
+    x=dbGetQuery(con,"SELECT COUNT(*) AS NRev, cnt AS NPub FROM (SELECT J9, COUNT(*) AS 'cnt' FROM isi_t_pg GROUP BY J9 ORDER BY cnt DESC) GROUP BY NPub ORDER BY NRev, NPub DESC")
     x$TNPub=x$NRev*x$NPub
-    x$NPubAcum<-cumsum(x$NRev)
-    x$TNPubAcum<-cumsum(x$TNPub)
-    x$Porc<-round(cumsum(x$TNPub/sum(x$TNPub))*100,3)
+    x$NPubAcum=cumsum(x$NRev)
+    x$TNPubAcum=cumsum(x$TNPub)
+    x$Porc=round(cumsum(x$TNPub/sum(x$TNPub))*100,3)
     plot(x$NPubAcum,x$Porc, type="l", xlab="Cumulative number of journals", ylab="% Cumulative")
     #plot(log10(x$NPubAcum),x$TNPubAcum, type="l")
     return(x)
@@ -160,7 +160,7 @@ isi_unimetrics_sqlite <- function(p){
   dbDisconnect(con)
 }
 
-isi_multimetrics_sqlite <- function(p){
+isi_multimetrics_sqlite = function(p){
   if (!require("DBI")) {
     install.packages("DBI")
     library(DBI)
@@ -169,14 +169,14 @@ isi_multimetrics_sqlite <- function(p){
     install.packages("RSQLite")
     library(RSQLite)
   }
-  drv<-dbDriver("SQLite")
-  con<-dbConnect(drv, dbname ="pgwos.db")
+  drv=dbDriver("SQLite")
+  con=dbConnect(drv, dbname ="pgwos.db")
   if(p=="redes_au"){
     if (!require("igraph")) {
       install.packages("igraph")
       library(igraph)
     }
-    x<-dbGetQuery(con, "SELECT a.AU A, b.AU B FROM isi_t_au a, isi_t_au b WHERE a.IDU = b.IDU AND a.AU <> b.AU")
+    x=dbGetQuery(con, "SELECT a.AU A, b.AU B FROM isi_t_au a, isi_t_au b WHERE a.IDU = b.IDU AND a.AU <> b.AU")
     MA=table(x)
     g=graph.adjacency(MA, weighted=TRUE,mode=c("undirected"))
     names=V(g)$name
@@ -192,7 +192,7 @@ isi_multimetrics_sqlite <- function(p){
   }
   else if(p=="ac_cat"){
     require("ca")
-    x<-dbGetQuery(con,"SELECT WC, PY FROM isi_t_wc")
+    x=dbGetQuery(con,"SELECT WC, PY FROM isi_t_wc")
     plot(ca(table(x)), mass=T, label=F)
   }
   dbDisconnect(con)
@@ -204,8 +204,8 @@ h_index=function (x,y,z){
     library(plyr)
   }
   if (y=="ALL"){
-    dat<-subset(x, select = c(PY, TC))
-    dat<-arrange(dat,desc(TC))
+    dat=subset(x, select = c(PY, TC))
+    dat=arrange(dat,desc(TC))
     cites=(dat$TC)
     year=dat$PY  
     val=0   
@@ -227,8 +227,8 @@ h_index=function (x,y,z){
     cat("====================================","\n")
   }
   else if(y=="PY"){
-    dat<-subset(x, select = c(PY, TC), PY ==z)
-    dat<-arrange(dat,desc(TC))
+    dat=subset(x, select = c(PY, TC), PY ==z)
+    dat=arrange(dat,desc(TC))
     cites=(dat$TC)
     year=dat$PY  
     val=0   
@@ -250,9 +250,9 @@ h_index=function (x,y,z){
     cat("====================================","\n")
   }
   else if(y=="WC"){
-    dat<-subset(x,grepl(z,x$WC,i))
-    dat<-subset(dat, select = c(PY, TC))
-    dat<-arrange(dat,desc(TC))
+    dat=subset(x,grepl(z,x$WC,i))
+    dat=subset(dat, select = c(PY, TC))
+    dat=arrange(dat,desc(TC))
     cites=(dat$TC)
     year=dat$PY  
     val=0   

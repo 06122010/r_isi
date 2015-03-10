@@ -32,9 +32,6 @@ Nuestra intención ahora no es desarrollar un paquete ad-hoc para el análisis b
 
 El entorno de funcionamiento del programa se basa en que posee diversas estructuras de datos denominadas "objetos", a los cuales se le suelen asignar nombres, contenidos y atributos. A continuación mencionamos brevemente algunos de estos objetos:
 * Vector: Es la estructura más simple, cuenta con dos argumentos mode y length. Los vectores pueden ser de tres tipos, a saber: numérico, lógico o de carácter. Un vector solo posee un tipo de dato. (R Development Core Team, 2008; Paradis, 2003)
-
-PREY: ¿puedes añadir un ejemplito de R? En cada objeto o uno final con los cuatro  
-
 * Factor: "Un factor incluye no solo los valores correspondientes a una variable categórica, sino también los diferentes niveles posibles de esta variable." (Paradis, 2003).
 * Matriz: Son vectores que cuentan con un atributo adicional (dim), que a su vez es un vector numérico de longitud 2 que define el número de las filas y columnas que deberá tener. Las matrices también son denominadas variables indexadas o arrays. (R Development Core Team, 2008)
 * Listas: es un tipo de objeto que está conformado por vectores de diferentes tipos.

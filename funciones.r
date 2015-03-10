@@ -197,3 +197,80 @@ isi_multimetrics_sqlite <- function(p){
   }
   dbDisconnect(con)
 }
+
+h_index=function (x,y,z){
+  if (!require("plyr")) {
+    install.packages("plyr")
+    library(plyr)
+  }
+  if (y=="ALL"){
+    dat<-subset(x, select = c(PY, TC))
+    dat<-arrange(dat,desc(TC))
+    cites=(dat$TC)
+    year=dat$PY  
+    val=0   
+    n=length(cites)  
+    rank=c(1:n)  
+    order=order(cites, decreasing=T)  
+    year=year[order]  
+    totcit=cites[order]  
+    dif=(cites-rank)  
+    for(i in 1:n){
+      if (dif[i]>=0)
+        val[i]=1
+      else    
+        val[i]=0
+    }
+    valor_h_index=sum(val)
+    cat("====================================","\n")
+    cat("\n","El indice h es: ",valor_h_index, "\n")
+    cat("====================================","\n")
+  }
+  else if(y=="PY"){
+    dat<-subset(x, select = c(PY, TC), PY ==z)
+    dat<-arrange(dat,desc(TC))
+    cites=(dat$TC)
+    year=dat$PY  
+    val=0   
+    n=length(cites)  
+    rank=c(1:n)  
+    order=order(cites, decreasing=T)  
+    year=year[order]  
+    totcit=cites[order]  
+    dif=(cites-rank)  
+    for(i in 1:n){
+      if (dif[i]>=0)
+        val[i]=1
+      else    
+        val[i]=0
+    }
+    valor_h_index=sum(val)
+    cat("====================================","\n")
+    cat("\n","El indice h para el", z," es: ", valor_h_index, "\n")
+    cat("====================================","\n")
+  }
+  else if(y=="WC"){
+    dat<-subset(x,grepl(z,x$WC,i))
+    dat<-subset(dat, select = c(PY, TC))
+    dat<-arrange(dat,desc(TC))
+    cites=(dat$TC)
+    year=dat$PY  
+    val=0   
+    n=length(cites)  
+    rank=c(1:n)  
+    order=order(cites, decreasing=T)  
+    year=year[order]  
+    totcit=cites[order]  
+    dif=(cites-rank)  
+    for(i in 1:n){
+      if (dif[i]>=0)
+        val[i]=1
+      else    
+        val[i]=0
+    }
+    valor_h_index=sum(val)
+    cat("====================================","\n")
+    cat("\n","El indice h es: ", valor_h_index, "\n")
+    cat("====================================","\n")
+  }
+}

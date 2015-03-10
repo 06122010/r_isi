@@ -10,7 +10,7 @@ Desde que J.S. Katz y Diana Hicks (1997) propusieran el término Desktop Sciento
 
 En estos años se ha llevado a cabo un proceso paralelo en relación con la aparición y desarrollo de aplicaciones de software libre, generalmente disponibles en formato multiplataforma, muy accesibles y suministradas en diversos niveles de implementación que posibilitan su uso por diferentes tipos de usuarios.
 
-En este sentido, en el ámbito de los estudios métricos de información es habitual el uso de lenguajes de programación como Perl (Sanz-Casado et al. 2014) o Python (Grauwin y Jensen 2011), la utilización de gestores de bases de datos como MySQL (Anuradha y Urs 2007; Han y Sun 2014), Postgré (Bowman et al. 2014) o SQlite (Gagolewski 2011), o los análisis llevados a cabo con aplicaciones como Pajek (Zhang, Thijs y Glänzel 2013), CiteSpace (Chen, Zhao y Xu 2012) o Gephi (Leydesdorff y Rafols 2012). Todas estas aplicaciones están disponibles para su uso libre y suponen una nueva forma de entender la investigación en la que este trabajo se  inscribe. 
+En este sentido, en el ámbito de los estudios métricos de información es habitual el uso de lenguajes de programación como Perl () o Python (Grauwin y Jensen 2011), la utilización de gestores de bases de datos como MySQL (Anuradha y Urs 2007; Han y Sun 2014), Postgré (Bowman et al. 2014) o SQlite (Gagolewski 2011), o los análisis llevados a cabo con aplicaciones como Pajek (Zhang, Thijs y Glänzel 2013), CiteSpace (Chen, Zhao y Xu 2012) o Gephi (Leydesdorff y Rafols 2012). Todas estas aplicaciones están disponibles para su uso libre y suponen una nueva forma de entender la investigación en la que este trabajo se  inscribe. 
 
 Por otra parte, la profesión de bibliotecario y en particular la del bibliotecario universitario, se está adaptando en sus competencias a nuevos escenarios. En el caso de las bibliotecas universitarias se está notando un cierto interés en la forma en la que los bibliotecarios pueden integrase de forma colaborativa en las instituciones que las acogen. Conceptos como el de ‘embedded librarian’ (Dewey 2004) abogan por una mayor integración y colaboración de los bibliotecarios en las tareas de enseñanza-aprendizaje y en las labores de investigación. Tener ‘incrustados’ profesionales de la información en estos ámbitos académicos puede reportar beneficios a investigadores (Carlson y Kneale 2011) y docentes (Hernández-Pérez et al. 2011)  para crear nuevas oportunidades a los profesionales (Kesselman y Watstein 2009).
 
@@ -211,3 +211,20 @@ En la obtención de datos susceptibles de uso bibliométrico el formato ‘.csv�
 El usar una base de datos relacional en este método nos aporta las bondades del lenguaje SQL, con lo que podemos organizar los datos de una forma más eficiente y con un mayor potencial en su tratamiento que lo que puede resultar del uso de gestores bibliográficos o de las herramientas de análisis incorporadas en las fuentes bibliográficas utilizadas. Hay vías que sólo se insinúan en este trabajo, como es la posibilidad de la consulta directa, sin cliente o gestor de base de datos, desde herramientas globales como es el propio software R. 
 
 Por último, deseamos hacer notar, que lo que proponemos en este trabajo es una adaptación a los nuevos tiempos de  la vieja filosofía del ‘desktop scientometrics’, esta vez basada en aplicaciones multiplataforma y de Software Libre que permita convencer a los usuarios de que con pequeños esfuerzos y mentalidades abiertas al cambio tecnológico es posible disponer en la palma de su mano de herramientas muy potentes para elaborar una amplia variedad de indicadores de interés bibliométrico.
+
+# 5. Bibliografía 
+ANURADHA, K.T. y URS, S.R. 2007. Bibliometric indicators of Indian research collaboration patterns: A correspondence analysis. Scientometrics, vol. 71, no. 2, pp. 179-189. ISSN 0138-9130, 1588-2861. DOI 10.1007/s11192-007-1657-4. 
+
+BOWMAN, T.D., TSOU, A., NI, C. y SUGIMOTO, C.R. 2014. Post-interdisciplinary frames of reference: exploring permeability and perceptions of disciplinarity in the social sciences. Scientometrics, vol. 101, no. 3, pp. 1695-1714. ISSN 0138-9130, 1588-2861. DOI 10.1007/s11192-014-1338-z. 
+
+CHEN, H., ZHAO, G. y XU, N. 2012. The Analysis of Research Hotspots and Fronts of Knowledge Visualization Based on CiteSpace II. En: S.K.S. CHEUNG, J. FONG, L.-F. KWOK, K. LI y R. KWAN (eds.), Hybrid Learning [en línea]. Berlin, Heidelberg: Springer Berlin Heidelberg, pp. 57-68. [Consulta: 10 enero 2015]. ISBN 978-3-642-32017-0, 978-3-642-32018-7. Disponible en: http://link.springer.com/10.1007/978-3-642-32018-7_6. 
+
+GAGOLEWSKI, M. 2011. Bibliometric impact assessment with R and the CITAN package. Journal of Informetrics, vol. 5, no. 4, pp. 678-692. ISSN 17511577. DOI 10.1016/j.joi.2011.06.006. 
+
+GRAUWIN, S. y JENSEN, P. 2011. Mapping scientific institutions. Scientometrics, vol. 89, no. 3, pp. 943-954. ISSN 0138-9130, 1588-2861. DOI 10.1007/s11192-011-0482-y. 
+
+HAN, G. y SUN, B. 2014. Design and Implementation of Bibliometrics System Based on RIA. En: S. PATNAIK y X. LI (eds.), Proceedings of International Conference on Soft Computing Techniques and Engineering Application [en línea]. New Delhi: Springer India, pp. 263-272. [Consulta: 10 enero 2015]. ISBN 978-81-322-1694-0, 978-81-322-1695-7. Disponible en: http://link.springer.com/10.1007/978-81-322-1695-7_30. 
+
+LEYDESDORFF, L. y RAFOLS, I. 2012. Interactive overlays: A new method for generating global journal maps from Web-of-Science data. Journal of Informetrics, vol. 6, no. 2, pp. 318-332. ISSN 17511577. DOI 10.1016/j.joi.2011.11.003. 
+
+ZHANG, L., THIJS, B. y GLÄNZEL, W. 2013. What does scientometrics share with other «metrics» sciences? Journal of the American Society for Information Science and Technology, vol. 64, no. 7, pp. 1515-1518. ISSN 15322882. DOI 10.1002/asi.22834. 

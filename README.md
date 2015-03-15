@@ -23,7 +23,7 @@ La función `isi_cargar` crea un *dataframe* que hemos llamado `WoS` en el que s
 El usuario indicará la ruta de acceso al directorio donde tenga almacenado los `.txt` de su descarga. Las funciones y demás desarrollos que se presentan aquí están ajustadas para tratar datos exportados de la *Web of Science* en formato separado por tabuladores. El usuario puede nombrar el dataframe como desee.
 
 ```{r,eval=T}
-WoS <- isi_cargar("../txt/")
+WoS <- isi_cargar("txt/")
 ```
 
 Si el usuario opta por trabajar directamente con el *dataframe* `WoS` en el propio entorno ***R***, podrá comenzar a obtener indicadores de los denominados unidimensionales, tales como frecuencias de datos referidos a la fecha `(PY)` o a la tipología documental `(DT)`, entre otros. 
@@ -71,7 +71,7 @@ referencias <- isi_separar(WoS,"CR")
 
 Como puede observarse en esta función se pueden emplear los siguientes argumentos: `C1` para crear el *dataframe* con las direcciones; `AU` para los autores; `WC` y/o `SC` para las categorías temáticas y `CR` para las referencias bibliográficas. 
 
-A modo de ejemplo, veamos las primeras lineas del *dataframe* `autores`:
+A modo de ejemplo, veamos las primeras 5 lineas del *dataframe* `autores`:
 ```{r, eval=TRUE}
 knitr::kable(autores[1:5,])
 ```

@@ -1,6 +1,4 @@
----
-title: "Bibliometría para bibliotecarios utilizando el entorno R"
-output: html_document
+Bibliometría para bibliotecarios utilizando el entorno R
 ---
 
 En este documento, de carácter temporal que se pone a disposición de los evaluadores, se presentan los principales hitos de la metodlogía que se describe en el trabajo sometido a revisión en la Revista Española de Documentación Científica.

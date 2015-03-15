@@ -20,7 +20,7 @@ isi_separar = function(x,y){
   if (y=="C1"){    
     c1=subset(x, select = c(IDU,UT,C1,PY), C1 !='')
     ddply(c1,.(IDU,PY),function(y){
-      z = gsub(pattern = "(\\[[^:]+\\])",replacement = "", y$C1, perl=TRUE)
+      z <- gsub(pattern ="\\[.+?\\]","", y$C1, perl=T)
       c1_dir = unlist(strsplit(as.character(z), split="; "))
       RS = data.frame(
         C1 = toupper(trim(c1_dir)),
@@ -120,82 +120,6 @@ isi_unimetrics_wos = function(x,y,...){
     q$Tasa=round(((q$Freq-q$Freq[1])/q$Freq[1])*100,3)
     return(q)
   }
-}
-
-isi_unimetrics_sqlite = function(p){
-  if (!require("DBI")) {
-    install.packages("DBI")
-    library(DBI)
-  }
-  if (!require("RSQLite")) {
-    install.packages("RSQLite")
-    library(RSQLite)
-  }
-  drv=dbDriver("SQLite")
-  con=dbConnect(drv, dbname ="pgwos.db")
-  if(p=="A"){
-    x=dbGetQuery(con,"SELECT COUNT(*) AS NAU, NPU FROM (SELECT rowid,  SUM( LENGTH( AU ) - LENGTH( REPLACE( AU, ';', '' ) ) +1 ) AS NPU FROM isi_t_pg GROUP BY rowid) GROUP BY NPU ORDER BY NAU ASC, NPU DESC")
-    x$nt.acum=cumsum(x$NPU)
-    x$na.acum=cumsum(x$NAU)
-    x$nt.p=round(cumsum(x$NPU)/sum(x$NPU)*100,2)
-    x$na.p=round(cumsum(x$NAU)/sum(x$NAU)*100,2)
-    x$d.teo=round(x[1,2]/x$NPU^2,0)
-    x$dif=x$NAU-round(x[1,2]/x$NPU^2,0)
-    x$at.acum=cumsum(round(x[1,2]/x$NPU^2,0))
-    x$at.p=round(cumsum(round(x[1,2]/x$NPU^2,0))/sum(round(x[1,2]/x$NPU^2,0))*100,2)
-    plot(x$na.p, x$nt.p, type="l", col="red", ylab="% Acum. Trabajos",xlab="% Acum. Autores")
-    lines(x$at.p, x$nt.p, col="blue")
-    return(x)
-  }
-  else if(p=="B"){
-    x=dbGetQuery(con,"SELECT COUNT(*) AS NRev, cnt AS NPub FROM (SELECT J9, COUNT(*) AS 'cnt' FROM isi_t_pg GROUP BY J9 ORDER BY cnt DESC) GROUP BY NPub ORDER BY NRev, NPub DESC")
-    x$TNPub=x$NRev*x$NPub
-    x$NPubAcum=cumsum(x$NRev)
-    x$TNPubAcum=cumsum(x$TNPub)
-    x$Porc=round(cumsum(x$TNPub/sum(x$TNPub))*100,3)
-    plot(x$NPubAcum,x$Porc, type="l", xlab="Cumulative number of journals", ylab="% Cumulative")
-    #plot(log10(x$NPubAcum),x$TNPubAcum, type="l")
-    return(x)
-  }
-  dbDisconnect(con)
-}
-
-isi_multimetrics_sqlite = function(p){
-  if (!require("DBI")) {
-    install.packages("DBI")
-    library(DBI)
-  }
-  if (!require("RSQLite")) {
-    install.packages("RSQLite")
-    library(RSQLite)
-  }
-  drv=dbDriver("SQLite")
-  con=dbConnect(drv, dbname ="pgwos.db")
-  if(p=="redes_au"){
-    if (!require("igraph")) {
-      install.packages("igraph")
-      library(igraph)
-    }
-    x=dbGetQuery(con, "SELECT a.AU A, b.AU B FROM isi_t_au a, isi_t_au b WHERE a.IDU = b.IDU AND a.AU <> b.AU")
-    MA=table(x)
-    g=graph.adjacency(MA, weighted=TRUE,mode=c("undirected"))
-    names=V(g)$name
-    we=E(g)$weight
-    l0=layout.fruchterman.reingold(g, dim=2,niter=10000)
-    plot.igraph(g,layout=l0,vertex.size=(degree(g)/5),edge.width=we/10,
-                vertex.label=names, vertex.label.dist=0.5, 
-                vertex.label.color=heat.colors(100), 
-                vertex.color=heat.colors(25), 
-                vertex.frame.color=cm.colors(100), 
-                edge.color=terrain.colors(500),
-                vertex.label.cex=0.4, vertex.label.font=1)
-  }
-  else if(p=="ac_cat"){
-    require("ca")
-    x=dbGetQuery(con,"SELECT WC, PY FROM isi_t_wc")
-    plot(ca(table(x)), mass=T, label=F)
-  }
-  dbDisconnect(con)
 }
 
 h_index=function (x,y,z){

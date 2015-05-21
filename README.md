@@ -1,4 +1,5 @@
-Bibliometría para bibliotecarios utilizando el entorno R
+"Desktop Scientometrics": una metodología para el uso de datos procedentes de WoS mediante el programa estadístico R.
+"Desktop Scientometrics": using the R statistical software with data from WoS, a methodology.
 ---
 
 En este documento, de carácter temporal que se pone a disposición de los evaluadores, se presentan los principales hitos de la metodlogía que se describe en el trabajo sometido a revisión en la Revista Española de Documentación Científica.

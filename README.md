@@ -1,7 +1,7 @@
 "Desktop Scientometrics": una metodología para el uso de datos procedentes de WoS mediante el programa estadístico R.
 ---
 
-En este documento, de carácter temporal que se pone a disposición de los evaluadores, se presentan los principales hitos de la metodlogía que se describe en el trabajo sometido a revisión en la Revista Española de Documentación Científica.
+Se presentan a modo de Guía práctica, los principales hitos de la metodología que se describe en el trabajo del mismo título publicado en la Revista Española de Documentación Científica.
 
 # 1. Obtención del script con las Funciones
 
